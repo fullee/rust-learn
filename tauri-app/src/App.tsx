@@ -5,11 +5,11 @@ import {invoke} from "@tauri-apps/api";
 
 function App() {
   const [count, setCount] = useState(0)
-  const [title,setTitle] = useState<string>('')
-  useEffect(()=>{
+  const [title, setTitle] = useState<string>('')
+  useEffect(() => {
     invoke('greet', {name: "lwl"})
       .then((resp) => setTitle(String(resp)))
-  },[])
+  }, [])
 
   return (
     <div className="App">
@@ -29,7 +29,18 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <button onClick={()=>{alert(title)}}>打开</button>
+        <button onClick={async () => {
+          const resp: string = await invoke('cvr', {})
+
+          if (resp) {
+            setTitle(resp);
+            alert("读卡完成")
+          } else {
+            alert("请重新放置身份证")
+          }
+
+        }}>打开
+        </button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

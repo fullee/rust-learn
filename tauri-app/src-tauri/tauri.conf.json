@@ -3,7 +3,7 @@
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "http://localhost:5173/",
-    "distDir": "face/dist"
+    "distDir": "../dist"
   },
   "package": {
     "productName": "mz-hgz-desktop",
