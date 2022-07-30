@@ -2,7 +2,7 @@ use std::error;
 use libloading::{Library, Symbol};
 use once_cell::sync::Lazy;
 
-static DLL: Lazy<Library> = Lazy::new(|| unsafe { Library::new("Termb.dll").expect("DLL文件异常") });
+static DLL: Lazy<Library> = Lazy::new(|| unsafe { Library::new("asserts/x64/Termb.dll").expect("DLL文件异常") });
 
 /// 设置波特率
 pub unsafe fn cvr_set_com_baudrate(u: i32) -> Result<i32, Box<dyn error::Error>> {

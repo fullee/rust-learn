@@ -37,7 +37,9 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": [
+        "asserts/x64/*.dll"
+      ],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -56,8 +58,9 @@
       {
         "fullscreen": false,
         "height": 600,
-        "resizable": true,
+        "resizable": false,
         "title": "mz-hgz-desktop",
+        "alwaysOnTop": true,
         "width": 800
       }
     ]

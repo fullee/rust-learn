@@ -1,7 +1,9 @@
 import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import 'antd/dist/antd.css';
 import {invoke} from "@tauri-apps/api";
+import {Button} from "antd";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,24 +25,24 @@ function App() {
       </div>
       <h1>Vite + React + {title}</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <Button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>
+        </Button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <button onClick={async () => {
+        <Button onClick={async () => {
           const resp: string = await invoke('cvr', {})
 
           if (resp) {
             setTitle(resp);
             alert("读卡完成")
           } else {
+            setTitle('');
             alert("请重新放置身份证")
           }
-
         }}>打开
-        </button>
+        </Button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

@@ -1,3 +1,6 @@
+打包debug包执行`npm run build:pkg`
+打包release包执行`npm run build:release`
+
 https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/
 
 https://tauri.app/zh/v1/api/config
