@@ -5,13 +5,14 @@ windows_subsystem = "windows"
 
 pub mod cvr_sdk;
 
+use std::rc::Rc;
 use std::thread::sleep;
 use std::time::Duration;
 use tauri::Manager;
 use textcode::gb2312;
 
 fn main() {
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
         .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
@@ -22,8 +23,17 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![greet,cvr])
-        .run(tauri::generate_context!())
+        .build(tauri::generate_context!())
         .expect("error while running tauri application");
+
+    let mut count = Box::new(0);
+    app.run(|app_handle, event| match event {
+        tauri::RunEvent::MainEventsCleared => {
+            count = count+1;
+            println!("On RunEvent::MainEventsCleared")
+        }
+        _ => {}
+    });
 }
 
 #[tauri::command]
@@ -66,5 +76,5 @@ fn cvr() -> String {
         }
     };
 
-    gb2312::decode_to_string(&name).replace('\0',"")
+    gb2312::decode_to_string(&name).replace('\0', "")
 }

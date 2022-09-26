@@ -1,6 +1,8 @@
 // extern crate lb;
 use lb::movies::play;
-use std::env;
+use std::{env, thread};
+use std::io::{Read, Write};
+use std::net::TcpListener;
 use std::path::Path;
 
 struct Video(String);
@@ -58,25 +60,22 @@ impl Car for TeslaRoadster {
 struct Foo(String);
 
 fn main() {
-    let mut foo = String::from("own");
-    let bar = &mut foo;
-    bar.push('!');
-    let bar2 = &mut foo;
+    let listener = TcpListener::bind("0.0.0.0:9527").unwrap();
+    loop {
+        let mut x = listener.accept().unwrap();
 
-    println!("{}", bar2);
-    // let tr = TeslaRoadster::neww("Tesla Roadster II", 2020);
-    // println!("{} is priced at ${}", tr.model, tr.get_price());
-    // let image_path = env::args().skip(1).next().unwrap();
-    // let path = Path::new(&image_path);
-    // let img = image::open(path).unwrap();
-    // let rotate = img.rotate90();
-    // rotate.save(path).unwrap();
-    // play("hh".to_string())
+        println!("{}", x.1);
 
-    // let audio = Audio("ama".to_string());
-    // let video = Video("vv.mp4".to_string());
-    // audio.play();
-    // video.play();
+        thread::spawn(move || {
+            let mut buf = [0u8; 12];
+
+            x.0.read_exact(&mut buf).unwrap();
+
+            println!("{:?}",String::from_utf8_lossy(&buf));
+            x.0.write_all(b"hello,you")
+
+        });
+    }
 }
 
 

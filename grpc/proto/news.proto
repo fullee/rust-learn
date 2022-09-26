@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+
+option java_package = "com.ruoyi.rpc";
+option java_outer_classname = "NewsProto";
+
+package news;
+
+service NewsService {
+  rpc testMethod(TestRequest) returns (TestReply){}
+
+  rpc testStreamMethod(TestRequest) returns (stream TestReply){}
+}
+
+message TestRequest {
+  string id = 1;
+  string name =2;
+}
+
+message TestReply {
+  string res = 1;
+}
