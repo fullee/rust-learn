@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+
+option java_package = "com.ruoyi.rpc";
+option java_outer_classname = "PrinterProto";
+
+package printer;
+
+service PrinterService {
+  rpc testMethod(Request) returns (Response){}
+
+  rpc testStreamMethod(Request) returns (stream Response){}
+
+  rpc channel(stream Request) returns (stream Response){}
+}
+
+message Request {
+  //  消息类型：1 开启二维码模式，2 心跳
+  int32 messageType = 1;
+  // 打印机编号
+  string code = 2;
+}
+
+message Response {
+  // 回复类型
+  string messageType = 1;
+  string desc = 2;
+}
