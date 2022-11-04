@@ -1,0 +1,9 @@
+[workspace]
+members =[
+    "lr",
+    "lb",
+    "thumbor",
+    "httpie",
+    "grpc",
+    "dll-test"
+]

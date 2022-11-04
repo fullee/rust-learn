@@ -60,6 +60,7 @@ impl Car for TeslaRoadster {
 struct Foo(String);
 
 fn main() {
+    println!("启动");
     let listener = TcpListener::bind("0.0.0.0:9527").unwrap();
     loop {
         let mut x = listener.accept().unwrap();
