@@ -30,11 +30,14 @@ async fn ws_handler(
 }
 
 async fn handle_socket(mut socket: WebSocket) {
-    if let Some(msg) = socket.recv().await {
+    while let Some(msg) = socket.recv().await {
         if let Ok(msg) = msg {
             match msg {
                 Message::Text(t) => {
                     println!("client sent str: {:?}", t);
+                    if socket.send(Message::Text(t)).await.is_err() {
+                        println!("client disconnected");
+                    }
                 }
                 Message::Binary(_) => {
                     println!("client sent binary data");
@@ -56,15 +59,15 @@ async fn handle_socket(mut socket: WebSocket) {
         }
     }
 
-    loop {
-        if socket
-            .send(Message::Text(String::from("Hi!")))
-            .await
-            .is_err()
-        {
-            println!("client disconnected");
-            return;
-        }
-        tokio::time::sleep(std::time::Duration::from_secs(3)).await;
-    }
+    // loop {
+    //     if socket
+    //         .send(Message::Text(String::from("Hi!")))
+    //         .await
+    //         .is_err()
+    //     {
+    //         println!("client disconnected");
+    //         return;
+    //     }
+    //     tokio::time::sleep(std::time::Duration::from_secs(3)).await;
+    // }
 }
